@@ -5,6 +5,9 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
 
 
 api = Blueprint('api', __name__)
@@ -31,13 +34,15 @@ def user_login():
     response_body = request.get_json(force=True)
     email = response_body['email']
     password = response_body['password']
-    pw_to_check = User.query.filter_by(email=email).first()
-    pw_hash = pw_to_check.password_hash
+    user = User.query.filter_by(email=email).first()
+    pw_hash = user.password_hash
     password_matched = check_password_hash(pw_hash, password)
     
-    print(password_matched)
-
-    return "ok", 200
+    if password_matched:
+        access_token = create_access_token(identity=user.id)
+        return jsonify({"token": access_token, "user_id": user.id})
+    else:
+        return "NOT OK", 401
 
 # this will be set just for testing purporses
 @api.route('/remove', methods=['DELETE'])
