@@ -26,7 +26,20 @@ def handle_signup():
     print(new_user.password_hash)
     return "ok", 200
 
-# this will be set just for testint purporses
+@api.route('/login', methods=['POST'])
+def user_login():
+    response_body = request.get_json(force=True)
+    email = response_body['email']
+    password = response_body['password']
+    pw_to_check = User.query.filter_by(email=email).first()
+    pw_hash = pw_to_check.password_hash
+    password_matched = check_password_hash(pw_hash, password)
+    
+    print(password_matched)
+
+    return "ok", 200
+
+# this will be set just for testing purporses
 @api.route('/remove', methods=['DELETE'])
 def delete_all():
     User.query.delete()
