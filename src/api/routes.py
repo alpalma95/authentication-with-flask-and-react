@@ -50,11 +50,3 @@ def private():
     user = User.query.get(current_user_id)
 
     return jsonify({"id": user.id, "email": user.email})
-
-
-# this will be set just for testing purporses
-@api.route('/remove', methods=['DELETE'])
-def delete_all():
-    User.query.delete()
-    db.session.commit()
-    return "everyone deleted", 200
