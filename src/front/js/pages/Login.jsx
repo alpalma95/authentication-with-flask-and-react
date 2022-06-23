@@ -29,38 +29,37 @@ const Login = () => {
     setPasswordValue("");
   };
 
-  return (
-    !store.userToken ?
+  return !store.userToken ? (
     <>
-    <div className="container w-50 mx-auto  vh-100 d-flex flex-column">
-      <label className="mt-5" htmlFor="email_input">
-        Email:
-      </label>
-      <input
-        type="text"
-        placeholder="user@email.com"
-        id="email_input"
-        value={emailValue}
-        onChange={setEmailValueHandler}
-      />
-      <br />
-      <label htmlFor="password_input">Password:</label>
-      <input
-        type="password"
-        placeholder=""
-        value={passwordValue}
-        id="password_input"
-        onChange={setPasswordValueHandler}
-      />
-      <br />
-      <button className="btn btn-outline-dark" onClick={submitUserInfo}>
-        Submit
-      </button>
-    </div>
+      <div className="container w-50 mx-auto  vh-100 d-flex flex-column">
+        <h1 className="mt-5">Login</h1>
+        <label className="mt-5" htmlFor="email_input">
+          Email:
+        </label>
+        <input
+          type="text"
+          placeholder="user@email.com"
+          id="email_input"
+          value={emailValue}
+          onChange={setEmailValueHandler}
+        />
+        <br />
+        <label htmlFor="password_input">Password:</label>
+        <input
+          type="password"
+          placeholder=""
+          value={passwordValue}
+          id="password_input"
+          onChange={setPasswordValueHandler}
+        />
+        <br />
+        <button className="btn btn-outline-dark" onClick={submitUserInfo}>
+          Submit
+        </button>
+      </div>
     </>
-    :
-    <Redirect to= "/"/>
-    
+  ) : (
+    <Redirect to="/" />
   );
 };
 
