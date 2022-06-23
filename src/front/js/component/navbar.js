@@ -1,13 +1,48 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 export const Navbar = () => {
+  const { store, actions } = useContext(Context);
+
+  const removeTokenHandler = () => {
+    localStorage.removeItem("jwt-token");
+    actions.getToken();
+  };
+
   return (
     <nav className="navbar navbar-light bg-light">
-      <div className="container">
-        <Link to="/">
-          <span className="navbar-brand mb-0 h1">Session control</span>
+      <div className="container d-flex justify-content-end">
+        <Link to="/" className="me-auto">
+          <span className="navbar-brand me-auto h1">Home</span>
         </Link>
+        <Link to="/login">
+          {store.userToken ? (
+            <></>
+          ) : (
+            <button className="btn btn-outline-dark m-1">Login!</button>
+          )}
+        </Link>
+        <Link to="/">
+          {store.userToken ? (
+            <button
+              className="btn btn-outline-dark m-1"
+              onClick={removeTokenHandler}
+            >
+              Log out
+            </button>
+          ) : (
+            <></>
+          )}
+        </Link>
+        <Link to="/signup">
+          {store.userToken ? (
+            <></>
+          ) : (
+            <button className="btn btn-outline-dark m-1">Sign up!</button>
+          )}
+        </Link>
+        {/* if user in show logout button */}
       </div>
     </nav>
   );

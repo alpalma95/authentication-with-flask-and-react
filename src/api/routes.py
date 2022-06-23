@@ -26,7 +26,6 @@ def handle_signup():
     new_user = User(email=response_body['email'], password_hash=hashed_pw, is_active=True)
     db.session.add(new_user)
     db.session.commit()
-    print(new_user.password_hash)
     return "ok", 200
 
 @api.route('/login', methods=['POST'])
@@ -43,6 +42,15 @@ def user_login():
         return jsonify({"token": access_token, "user_id": user.id})
     else:
         return "NOT OK", 401
+
+@api.route('/private', methods=['GET'])
+@jwt_required()
+def private():
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+
+    return jsonify({"id": user.id, "email": user.email})
+
 
 # this will be set just for testing purporses
 @api.route('/remove', methods=['DELETE'])
