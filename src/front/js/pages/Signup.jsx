@@ -20,7 +20,7 @@ const Signup = () => {
   const submitUserInfo = () => {
     if (emailValue && passwordValue) {
       fetch(
-        "https://3001-alpalma95-authenticatio-1wocewy3ggc.ws-eu47.gitpod.io/api/signup",
+        "https://3001-alpalma95-authenticatio-1wocewy3ggc.ws-eu49.gitpod.io/api/signup",
         {
           method: "POST",
           headers: { "Content-type": "application/json" },

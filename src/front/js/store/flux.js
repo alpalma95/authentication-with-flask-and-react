@@ -9,7 +9,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     actions: {
       login: (email, password) => {
         fetch(
-          "https://3001-alpalma95-authenticatio-1wocewy3ggc.ws-eu47.gitpod.io/api/login",
+          "https://3001-alpalma95-authenticatio-1wocewy3ggc.ws-eu49.gitpod.io/api/login",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -31,7 +31,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       getPrivate: () => {
         const token = localStorage.getItem("jwt-token");
         fetch(
-          "https://3001-alpalma95-authenticatio-1wocewy3ggc.ws-eu47.gitpod.io/api/private",
+          "https://3001-alpalma95-authenticatio-1wocewy3ggc.ws-eu49.gitpod.io/api/private",
           {
             method: "GET",
             headers: {
